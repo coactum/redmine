@@ -31,13 +31,20 @@
     <td class="checkbox hide-when-print"><%= check_box_tag("ids[]", issue.id, false, :id => nil) %></td>
     <%= raw query.inline_columns.map {|column| "<td class=\"#{column.css_classes}\">#{column_content(column, issue)}</td>"}.join %>
   </tr>
-  <% @query.block_columns.each do |column|
-       if (text = column_content(column, issue)) && text.present? -%>
-  <tr class="<%= current_cycle %>">
-    <td colspan="<%= @query.inline_columns.size + 1 %>" class="<%= column.css_classes %>"><%= text %></td>
-  </tr>
+
+  <% @query.available_block_columns.each do |column|
+      if (@query.has_column?(column)) && @jounalsMap[issue.id].present? -%>
+      <tr class="<%= current_cycle %>">
+        <td colspan="<%= @query.inline_columns.size + 1 %>" class="<%= column.css_classes %>">
+          <div id="history">
+          <h3><%=l(:field_history)%></h3>
+          <%= render :partial => 'list_history', :locals => { :issue => issue, :journals => @jounalsMap[issue.id] } %>
+          </div>
+        </td>
+      </tr>
   <% end -%>
   <% end -%>
+
   <% end -%>
   </tbody>
 </table>

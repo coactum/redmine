@@ -39,6 +39,17 @@ module JournalsHelper
     content_tag('div', content.html_safe, :id => "journal-#{journal.id}-notes", :class => css_classes)
   end
 
+  def render_notes_readonly(issue, journal, options={})
+    content = ''
+    editable = false
+    links = []
+    content << content_tag('div', links.join(' ').html_safe, :class => 'contextual') unless links.empty?
+    content << textilizable(journal, :notes)
+    css_classes = "wiki"
+    css_classes << " editable" if editable
+    content_tag('div', content.html_safe, :id => "journal-#{journal.id}-notes", :class => css_classes)
+  end
+
   def link_to_in_place_notes_editor(text, field_id, url, options={})
     onclick = "$.ajax({url: '#{url_for(url)}', type: 'get'}); return false;"
     link_to text, '#', options.merge(:onclick => onclick)

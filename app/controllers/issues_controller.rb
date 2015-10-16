@@ -71,6 +71,21 @@ class IssuesController < ApplicationController
                               :order => sort_clause,
                               :offset => @offset,
                               :limit => @limit)
+
+      @jounalsMap = Hash.new
+      for issue in @issues
+        journals = issue.journals.includes(:user, :details).
+                        references(:user, :details).
+                        reorder(:created_on, :id).to_a
+        journals.each_with_index {|j,i| j.indice = i+1}
+        journals.reject!(&:private_notes?) unless User.current.allowed_to?(:view_private_notes, issue.project)
+        Journal.preload_journals_details_custom_fields(journals)
+        journals.select! {|journal| journal.notes? || journal.visible_details.any?}
+        journals.reverse! if User.current.wants_comments_in_reverse_order?
+
+        @jounalsMap[issue.id] = journals
+      end
+
       @issue_count_by_group = @query.issue_count_by_group
 
       respond_to do |format|

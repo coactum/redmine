@@ -41,7 +41,7 @@ a.collapsible.collapsed {background: url(../images/arrow_collapsed.png) no-repea
 
 /***** Tables *****/
 table.list td {padding-left:0px; padding-right:10px;}
-table.list td.name, table.list td.description, table.list td.subject, table.list td.comments, table.list td.roles {text-align:right;}
+table.list td.name, table.list td.description, table.list td.history, table.list td.subject, table.list td.comments, table.list td.roles {text-align:right;}
 table.list td.buttons {text-align:left; }
 table.list td.buttons a {padding-right: 0em; padding-left: 0.6em;}
 table.list caption {text-align:right; padding: 0.5em 0 0.5em 0.5em;}
@@ -60,7 +60,7 @@ tr.project.idnt-9 td.name {padding-left:0; padding-right:12.5em;}
 tr.issue td.subject, tr.issue td.relations { text-align:right; }
 tr.issue td.done_ratio table.progress { margin-left:auto; margin-right: auto;}
 
-table.issues td.description {padding:4px 24px 4px 4px; text-align:right;}
+table.issues td.description, table.issues td.history {padding:4px 24px 4px 4px; text-align:right;}
 
 tr.issue.idnt td.subject a {padding-left: 0; padding-right: 16px;}
 tr.issue.idnt-1 td.subject {padding-left:0; padding-right: 0.5em;}
